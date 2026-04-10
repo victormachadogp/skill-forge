@@ -1,6 +1,6 @@
 # Mood Canvas
 
-Mood Canvas is an interactive visual arts project where each piece is built from an emotional phrase.
+Mood Canvas is an interactive visual arts project where each piece is born from an emotional phrase. The goal is to translate feeling into experience — visual, sonic — while exploring real software engineering concepts, architecture, and frontend ecosystem tools.
 
 The goal is not just to display something beautiful, but to translate a feeling into a visual and interactive experience.
 
@@ -16,7 +16,7 @@ Learn and experiment creating visual art using Three.js or other visual framewor
 
 > "Each emotion defines rules of visual behavior."
 
-Every emotion maps to a set of visual behaviors — not just colors, but motion, rhythm, and weight.
+Each emotion translates into a set of visual behaviors — not just colors, but motion, rhythm, and weight.
 
 | Emotion | Behavior |
 |---|---|
@@ -42,8 +42,6 @@ Time is a first-class element in every piece.
 - They disappear
 - They repeat
 - They accelerate or decelerate
-
-> `grief finds me again` → visual repetition as emotional recurrence
 
 > "I don't draw — I define how the system behaves."
 
@@ -113,3 +111,37 @@ Each segment uses kebab-case. Double dashes separate segments to avoid ambiguity
 | `framework` | `react`, `vanilla`, `svelte` |
 
 **Example:** `particle--falling-thoughts--threejs--react`
+
+
+## Backlog
+
+Ideas and evolutions that may make sense as the project grows. Nothing here is a priority — these are possible directions, not commitments.
+
+### Gallery and presentation
+
+- [ ] **Web gallery** — an index page listing all pieces with a preview (screenshot or GIF) and a link to open each one
+- [ ] **Automatic deploy** — each piece published via GitHub Pages or similar, accessible by a direct URL
+- [ ] **Automatic thumbnails** — a script that opens each piece in a headless browser, takes a screenshot, and saves it as a preview
+
+### Tooling and automation
+
+- [ ] **Scaffolding CLI** — a command that creates the structure of a new piece (folder, `meta.json`, `LEARNINGS.md`, base file) from a template
+- [ ] **Structure validation** — a lint that checks whether each piece has `meta.json`, `LEARNINGS.md`, and follows the naming convention
+- [ ] **Piece catalog** — a JSON automatically generated from each piece's `meta.json`, serving as the project index
+
+### Technical evolution
+
+- [ ] **Shaders as focus** — a series of pieces dedicated to learning GLSL/WebGL shaders from scratch
+- [ ] **Responsiveness as constraint** — pieces that work well on mobile, exploring touch events and device orientation
+- [ ] **Performance budgets** — define FPS and memory limits per piece and measure with DevTools
+
+### Process and learning
+
+- [ ] **Evolving meta.json into DSL** — if a clear pattern emerges across pieces, formalize `meta.json` as a configuration language for semi-automatic scene generation
+- [ ] **Approach comparison** — the same emotional phrase implemented with different libs to compare ergonomics, performance, and visual output
+- [ ] **Collaboration** — allow other people to submit phrases and/or pieces via PR
+
+### Infra and CI
+
+- [ ] **CI on Skill Forge** — pipeline that runs structure validation, generates thumbnails, and deploys the gallery automatically
+- [ ] **Visual tests** — snapshot testing of pieces to detect accidental visual regressions
