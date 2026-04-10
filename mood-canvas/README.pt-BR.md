@@ -1,6 +1,6 @@
 # Mood Canvas
 
-Mood Canvas é um projeto de artes visuais interativas onde cada peça é construída a partir de uma frase emocional.
+Mood Canvas é um projeto de artes visuais interativas onde cada peça nasce de uma frase emocional. O objetivo é traduzir sentimento em experiência, visual, sonora, enquanto exploro conceitos reais de engenharia de software, arquitetura e ferramentas do ecossistema frontend.
 
 O objetivo não é apenas exibir algo bonito, mas traduzir um sentimento em uma experiência visual e interativa.
 
@@ -42,8 +42,6 @@ O tempo é um elemento de primeira classe em cada peça.
 - Desaparecem
 - Repetem
 - Aceleram ou desaceleram
-
-> `grief finds me again` → repetição visual como recorrência emocional
 
 > "Eu não desenho — eu defino como o sistema se comporta."
 
