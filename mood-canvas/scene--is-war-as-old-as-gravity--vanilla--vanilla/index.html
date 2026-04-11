@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Is war as old as gravity?</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600&display=swap');
+
+        :root {
+            --xp-blue: #0055E5;
+            --xp-light-blue: #0A7CFF;
+            --xp-title-left: #0058E6;
+            --xp-title-right: #3A8CF2;
+            --xp-gray: #ECE9D8;
+            --xp-border-light: #FFFFFF;
+            --xp-border-dark: #716F64;
+            --xp-border-darker: #404040;
+            --xp-button-face: #ECE9D8;
+            --xp-button-highlight: #FFFFFF;
+            --xp-button-shadow: #ACA899;
+            --xp-desktop: #3A6EA5;
+            --xp-taskbar: #235ADC;
+            --xp-start-green: #3C9E3F;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            font-family: 'Tahoma', 'Segoe UI', sans-serif;
+            font-size: 11px;
+            user-select: none;
+            cursor: default;
+        }
+
+        /* ─── XP DESKTOP ─── */
+        .xp-desktop {
+            width: 100%;
+            height: 100%;
+            background: var(--xp-desktop);
+            background-image:
+                radial-gradient(ellipse at 30% 40%, #4A8EBF 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, #2A5E8F 0%, transparent 50%),
+                linear-gradient(180deg, #3A6EA5 0%, #2D5F94 50%, #245389 100%);
+            position: relative;
+        }
+
+        /* ─── TASKBAR ─── */
+        .taskbar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 36px;
+            background: linear-gradient(180deg, #3168D5 0%, #2456C7 3%, #1C4ABD 6%, #1941B5 50%, #1840B3 54%, #1A44B7 94%, #2E63D7 100%);
+            border-top: 1px solid #5999EF;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+        }
+
+        .start-button {
+            height: 30px;
+            margin-left: 2px;
+            padding: 0 10px 0 4px;
+            background: linear-gradient(180deg, #3B9E3F 0%, #328E34 3%, #2D8830 50%, #2B8330 54%, #3AA23C 100%);
+            border: none;
+            border-radius: 0 8px 8px 0;
+            color: white;
+            font-family: 'Franklin Gothic Medium', 'Tahoma', sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            font-style: italic;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+            box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+        }
+
+        .start-logo {
+            width: 22px;
+            height: 22px;
+            background: radial-gradient(circle at 40% 35%, #FF8C00 0%, #FF4500 40%, #CC0000 70%, #990000 100%);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+        .start-logo::after {
+            content: '';
+            position: absolute;
+            width: 10px; height: 10px;
+            background: radial-gradient(circle, #44FF44 0%, #00AA00 50%, #006600 100%);
+            border-radius: 50%;
+            bottom: 1px; left: 1px;
+        }
+        .start-logo::before {
+            content: '';
+            position: absolute;
+            width: 9px; height: 9px;
+            background: radial-gradient(circle, #6666FF 0%, #3333CC 50%, #000099 100%);
+            border-radius: 50%;
+            top: 2px; right: 1px;
+        }
+
+        .taskbar-tray {
+            margin-left: auto;
+            height: 100%;
+            background: linear-gradient(180deg, #1290E9 0%, #1072C9 50%, #0F6CBF 54%, #1795EE 100%);
+            border-left: 1px solid #1562AD;
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 11px;
+            font-family: 'Tahoma', sans-serif;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+        }
+
+        /* ─── XP DIALOG ─── */
+        .xp-dialog {
+            position: absolute;
+            background: var(--xp-gray);
+            border: 1px solid var(--xp-border-dark);
+            border-radius: 8px 8px 0 0;
+            box-shadow:
+                0 0 0 1px rgba(0,0,0,0.1),
+                2px 2px 10px rgba(0,0,0,0.35),
+                inset 0 0 0 1px var(--xp-border-light);
+            min-width: 360px;
+            overflow: hidden;
+            z-index: 50;
+        }
+
+        .xp-dialog.ghost {
+            opacity: 0.65;
+            pointer-events: none;
+            z-index: 40;
+        }
+
+        .xp-dialog.corrupt {
+            filter: saturate(3) hue-rotate(90deg);
+        }
+
+        .xp-dialog.invert {
+            filter: invert(1);
+        }
+
+        .xp-dialog.redshift {
+            filter: saturate(2) sepia(0.5) hue-rotate(-30deg);
+        }
+
+        .dialog-titlebar {
+            height: 28px;
+            background: linear-gradient(180deg,
+                #0A7CFF 0%,
+                #0663E0 4%,
+                #0553CC 8%,
+                #0349BC 50%,
+                #034AB9 54%,
+                #0557C9 94%,
+                #0E6EEB 100%
+            );
+            border-radius: 7px 7px 0 0;
+            display: flex;
+            align-items: center;
+            padding: 0 4px;
+            cursor: default;
+        }
+
+        .dialog-titlebar .title-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 4px;
+            background: linear-gradient(135deg, #FF0 0%, #FA0 50%, #F50 100%);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .dialog-titlebar .title-text {
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+            flex: 1;
+            font-family: 'Trebuchet MS', 'Tahoma', sans-serif;
+        }
+
+        .title-buttons {
+            display: flex;
+            gap: 2px;
+        }
+
+        .title-btn {
+            width: 21px;
+            height: 21px;
+            border: none;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Marlett', 'Webdings', sans-serif;
+        }
+
+        .title-btn.close {
+            background: linear-gradient(180deg, #E47C6C 0%, #D45240 50%, #C03424 100%);
+            color: white;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+            text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+        }
+
+        .dialog-body {
+            padding: 18px 16px 12px;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .dialog-icon {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+        }
+
+        .warning-triangle {
+            width: 32px;
+            height: 32px;
+            position: relative;
+        }
+
+        .warning-triangle svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .dialog-message {
+            font-family: 'Tahoma', sans-serif;
+            font-size: 11px;
+            line-height: 1.5;
+            color: #000;
+            padding-top: 4px;
+        }
+
+        .dialog-footer {
+            display: flex;
+            justify-content: center;
+            padding: 8px 16px 14px;
+            gap: 8px;
+        }
+
+        .xp-button {
+            min-width: 75px;
+            height: 23px;
+            padding: 0 12px;
+            font-family: 'Tahoma', sans-serif;
+            font-size: 11px;
+            background: linear-gradient(180deg, #FFFFFF 0%, #ECE9D8 89%, #D6D0BF 100%);
+            border: 1px solid #003C74;
+            border-radius: 3px;
+            cursor: pointer;
+            color: #000;
+            box-shadow:
+                inset 0 1px 0 #FFFFFF,
+                inset 0 -1px 0 #DFDFCF;
+        }
+
+        .xp-button:active {
+            background: linear-gradient(180deg, #D6D0BF 0%, #ECE9D8 100%);
+            box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .xp-button:focus {
+            outline: 1px dotted #000;
+            outline-offset: -4px;
+        }
+
+        .dialog-checkbox {
+            padding: 4px 16px 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Tahoma', sans-serif;
+            font-size: 11px;
+            color: #000;
+        }
+
+        .dialog-checkbox input {
+            margin: 0;
+        }
+
+        /* ─── BSOD ─── */
+        .bsod {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000088;
+            z-index: 200;
+            display: none;
+            padding: 8% 12%;
+            font-family: 'Courier New', 'Lucida Console', monospace;
+            color: #AAAAAA;
+            font-size: clamp(10px, 1.4vw, 16px);
+            line-height: 1.5;
+        }
+
+        .bsod-title {
+            background: #AAAAAA;
+            color: #000088;
+            padding: 1px 8px;
+            display: inline;
+            font-weight: bold;
+        }
+
+        .bsod .white {
+            color: #FFFFFF;
+        }
+
+        .bsod-content {
+            margin-top: 2em;
+        }
+
+        /* ─── GLITCH OVERLAY ─── */
+        .glitch-bar {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            pointer-events: none;
+            z-index: 150;
+            opacity: 0;
+        }
+
+        /* ─── SCREEN TEAR ─── */
+        .screen-tear {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 160;
+            display: none;
+        }
+
+        /* ─── SCANLINES ─── */
+        .crt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 170;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 1px,
+                rgba(0, 0, 0, 0.04) 1px,
+                rgba(0, 0, 0, 0.04) 2px
+            );
+            opacity: 0.6;
+        }
+
+        .phrase-watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Pixelify Sans', monospace;
+            font-size: clamp(2rem, 6vw, 5rem);
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.0);
+            pointer-events: none;
+            z-index: 45;
+            text-align: center;
+            letter-spacing: 0.05em;
+            line-height: 1.3;
+            white-space: nowrap;
+            transition: color 0.3s;
+        }
+
+        .phrase-watermark.visible {
+            color: rgba(255, 255, 255, 0.06);
+            text-shadow: 0 0 60px rgba(255, 50, 50, 0.08);
+        }
+
+        @media (max-width: 600px) {
+            .xp-dialog {
+                min-width: 280px;
+                transform: scale(0.85);
+            }
+            .taskbar { height: 30px; }
+            .start-button { font-size: 10px; height: 26px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="xp-desktop" id="desktop">
+        <div class="phrase-watermark" id="watermark">Is war as old as gravity?</div>
+    </div>
+
+    <div class="taskbar">
+        <button class="start-button">
+            <div class="start-logo"></div>
+            start
+        </button>
+        <div class="taskbar-tray" id="clock">12:00 AM</div>
+    </div>
+
+    <div class="bsod" id="bsod">
+        <span class="bsod-title"> war.sys </span>
+        <div class="bsod-content">
+            <span class="white">A fatal exception has occurred in the human operating system.</span><br><br>
+            <span class="white">Is war as old as gravity?</span><br><br>
+            The current process has been terminated.<br>
+            All unsaved peace will be lost.<br><br>
+            * Press any key to restart the cycle.<br>
+            * Press CTRL+ALT+DEL to pretend this never happened.<br><br>
+            <span class="white">Error code: 0x00000WAR (GRAVITY_IRQL_NOT_LESS_OR_EQUAL)</span><br><br>
+            Beginning dump of collective memory...
+        </div>
+    </div>
+
+    <div class="crt-overlay"></div>
+
+    <script>
+    (function() {
+        const desktop = document.getElementById('desktop');
+        const bsod = document.getElementById('bsod');
+        const watermark = document.getElementById('watermark');
+        const clockEl = document.getElementById('clock');
+
+        let dialogCount = 0;
+        let bugLevel = 0; // escalates over time
+        let totalClicks = 0;
+        let bsodActive = false;
+        let lastGlitchTime = 0;
+
+        // ─── CLOCK ───
+        function updateClock() {
+            const now = new Date();
+            const h = now.getHours();
+            const m = now.getMinutes().toString().padStart(2, '0');
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            const h12 = h % 12 || 12;
+            clockEl.textContent = `${h12}:${m} ${ampm}`;
+        }
+        updateClock();
+        setInterval(updateClock, 30000);
+
+        // ─── CREATE XP DIALOG ───
+        function createDialog(x, y, options = {}) {
+            const dialog = document.createElement('div');
+            dialog.className = 'xp-dialog' + (options.ghost ? ' ghost' : '') + (options.corrupt ? ' corrupt' : '') + (options.invert ? ' invert' : '') + (options.redshift ? ' redshift' : '');
+
+            const messages = [
+                'Is war as old as gravity?',
+                'This question cannot be closed.',
+                'Warning: Gravity is not a choice.',
+                'Error: Peace.exe has stopped responding.',
+                'war.dll loaded successfully since the beginning of time.',
+                'Fatal: Cannot uninstall gravity.',
+                'The system has detected an ancient conflict.',
+                'Warning: This alert has existed before you.',
+                'Reminder: You clicked. Wars start the same way.',
+                'Error 0x00000001: First stone was thrown.',
+            ];
+
+            const msg = options.message || messages[Math.floor(Math.random() * messages.length)];
+            const title = options.title || (Math.random() < 0.3 ? 'war.sys' : 'Windows');
+
+            dialog.innerHTML = `
+                <div class="dialog-titlebar">
+                    <div class="title-icon">⚠</div>
+                    <span class="title-text">${title}</span>
+                    <div class="title-buttons">
+                        <button class="title-btn close" data-action="close">✕</button>
+                    </div>
+                </div>
+                <div class="dialog-body">
+                    <div class="dialog-icon">
+                        <div class="warning-triangle">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <path d="M16 2L1 29h30L16 2z" fill="#FFD000" stroke="#000" stroke-width="0.5"/>
+                                <text x="16" y="25" text-anchor="middle" font-size="18" font-weight="bold" fill="#000" font-family="Tahoma">!</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="dialog-message">${msg}</div>
+                </div>
+                <div class="dialog-checkbox">
+                    <input type="checkbox" disabled>
+                    <span>Don't show this again</span>
+                </div>
+                <div class="dialog-footer">
+                    <button class="xp-button" data-action="ok">OK</button>
+                </div>
+            `;
+
+            // Position
+            const offsetX = options.offsetX || 0;
+            const offsetY = options.offsetY || 0;
+            const maxX = window.innerWidth - 380;
+            const maxY = window.innerHeight - 250;
+            const posX = Math.min(Math.max(0, (x || Math.random() * maxX) + offsetX), maxX);
+            const posY = Math.min(Math.max(0, (y || Math.random() * maxY) + offsetY), maxY);
+
+            dialog.style.left = posX + 'px';
+            dialog.style.top = posY + 'px';
+
+            desktop.appendChild(dialog);
+            dialogCount++;
+
+            // ── Button handlers ──
+            dialog.querySelectorAll('[data-action]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    handleDialogAction(dialog, btn.dataset.action, posX, posY);
+                });
+            });
+
+            // Bring to front on click
+            dialog.addEventListener('mousedown', () => {
+                dialog.style.zIndex = 50 + dialogCount;
+            });
+
+            // Glitch on creation at higher bug levels
+            if (bugLevel > 3 && Math.random() < 0.4) {
+                glitchDialog(dialog);
+            }
+
+            return dialog;
+        }
+
+        // ─── DIALOG ACTIONS ───
+        function handleDialogAction(dialog, action, x, y) {
+            totalClicks++;
+            bugLevel = Math.min(10, Math.floor(totalClicks / 3));
+
+            // Show watermark after a few clicks
+            if (totalClicks >= 4) {
+                watermark.classList.add('visible');
+            }
+
+            if (action === 'ok' || action === 'close') {
+                // Never actually closes cleanly
+                if (bugLevel < 2) {
+                    // Early: dialog shakes and stays, spawns one more
+                    shakeDialog(dialog);
+                    setTimeout(() => {
+                        createDialog(x + (Math.random() - 0.5) * 80, y + 30 + Math.random() * 40);
+                    }, 200);
+                } else if (bugLevel < 4) {
+                    // Mid: spawns 2-3 more, some with trail ghosts
+                    shakeDialog(dialog);
+                    const count = 2 + Math.floor(Math.random() * 2);
+                    for (let i = 0; i < count; i++) {
+                        setTimeout(() => {
+                            const opts = Math.random() < 0.3 ? { ghost: true } : {};
+                            createDialog(
+                                x + (Math.random() - 0.5) * 200,
+                                y + (Math.random() - 0.5) * 150,
+                                opts
+                            );
+                        }, i * 80);
+                    }
+                } else if (bugLevel < 7) {
+                    // High: cascade of corrupted dialogs + glitch bars
+                    const count = 3 + Math.floor(Math.random() * 3);
+                    for (let i = 0; i < count; i++) {
+                        setTimeout(() => {
+                            const effects = ['corrupt', 'invert', 'redshift', 'ghost'];
+                            const effect = effects[Math.floor(Math.random() * effects.length)];
+                            const opts = { [effect]: true };
+                            createDialog(
+                                Math.random() * (window.innerWidth - 380),
+                                Math.random() * (window.innerHeight - 250),
+                                opts
+                            );
+                        }, i * 50);
+                    }
+                    triggerGlitchBars();
+                    triggerScreenTear();
+                } else {
+                    // Critical: BSOD
+                    triggerBSOD();
+                    return;
+                }
+            }
+
+            // Random glitch effects
+            if (bugLevel > 2 && Math.random() < 0.3) {
+                triggerGlitchBars();
+            }
+        }
+
+        // ─── VISUAL EFFECTS ───
+        function shakeDialog(dialog) {
+            const original = dialog.style.transform || '';
+            let shakes = 0;
+            const interval = setInterval(() => {
+                const x = (Math.random() - 0.5) * 8;
+                const y = (Math.random() - 0.5) * 6;
+                dialog.style.transform = `translate(${x}px, ${y}px)`;
+                shakes++;
+                if (shakes > 6) {
+                    clearInterval(interval);
+                    dialog.style.transform = original;
+                }
+            }, 40);
+        }
+
+        function glitchDialog(dialog) {
+            const effects = [
+                () => { dialog.style.transform = `skewX(${(Math.random()-0.5)*8}deg)`; },
+                () => { dialog.style.clipPath = `inset(${Math.random()*30}% 0 ${Math.random()*30}% 0)`; },
+                () => { dialog.style.filter = `hue-rotate(${Math.random()*360}deg)`; },
+            ];
+            const effect = effects[Math.floor(Math.random() * effects.length)];
+            effect();
+            setTimeout(() => {
+                dialog.style.transform = '';
+                dialog.style.clipPath = '';
+                dialog.style.filter = '';
+            }, 150 + Math.random() * 200);
+        }
+
+        function triggerGlitchBars() {
+            const barCount = 2 + Math.floor(Math.random() * 4);
+            for (let i = 0; i < barCount; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'glitch-bar';
+                bar.style.top = (Math.random() * 100) + '%';
+                bar.style.height = (2 + Math.random() * 20) + 'px';
+                bar.style.background = Math.random() < 0.5
+                    ? `rgba(${Math.random()*255|0}, ${Math.random()*100|0}, ${Math.random()*100|0}, ${0.3 + Math.random()*0.5})`
+                    : `rgba(0, ${Math.random()*200|0}, ${Math.random()*255|0}, ${0.2 + Math.random()*0.3})`;
+                bar.style.opacity = '1';
+                bar.style.transform = `translateX(${(Math.random()-0.5)*20}px)`;
+                bar.style.mixBlendMode = 'screen';
+                document.body.appendChild(bar);
+
+                setTimeout(() => bar.remove(), 80 + Math.random() * 150);
+            }
+        }
+
+        function triggerScreenTear() {
+            const tear = document.createElement('div');
+            tear.style.cssText = `
+                position: fixed;
+                top: ${Math.random() * 80}%;
+                left: 0;
+                width: 100%;
+                height: ${5 + Math.random() * 15}%;
+                pointer-events: none;
+                z-index: 160;
+                background: linear-gradient(
+                    90deg,
+                    transparent ${Math.random()*20}%,
+                    rgba(255,255,255,0.05) ${20+Math.random()*20}%,
+                    transparent ${60+Math.random()*20}%
+                );
+                transform: translateX(${(Math.random()-0.5) * 30}px);
+                mix-blend-mode: overlay;
+            `;
+            document.body.appendChild(tear);
+            setTimeout(() => tear.remove(), 100 + Math.random() * 100);
+        }
+
+        function triggerBSOD() {
+            bsodActive = true;
+            bsod.style.display = 'block';
+
+            // Flicker before stable
+            let flickers = 0;
+            const flickerInterval = setInterval(() => {
+                bsod.style.display = bsod.style.display === 'none' ? 'block' : 'none';
+                flickers++;
+                if (flickers > 6) {
+                    clearInterval(flickerInterval);
+                    bsod.style.display = 'block';
+                }
+            }, 60);
+
+            // Allow restart
+            const restart = (e) => {
+                if (!bsodActive) return;
+                bsodActive = false;
+                bsod.style.display = 'none';
+                document.removeEventListener('keydown', restart);
+                document.removeEventListener('click', restart);
+
+                // Clear all dialogs
+                desktop.querySelectorAll('.xp-dialog').forEach(d => d.remove());
+                dialogCount = 0;
+                totalClicks = 0;
+                bugLevel = 0;
+                watermark.classList.remove('visible');
+
+                // Restart with fresh dialog after brief black screen
+                document.body.style.background = '#000';
+                setTimeout(() => {
+                    document.body.style.background = '';
+                    createDialog(
+                        window.innerWidth / 2 - 180,
+                        window.innerHeight / 2 - 120,
+                        { message: 'Is war as old as gravity?' }
+                    );
+                }, 800);
+            };
+
+            setTimeout(() => {
+                document.addEventListener('keydown', restart);
+                document.addEventListener('click', restart);
+            }, 1500);
+        }
+
+        // ─── AUTO GLITCH SYSTEM ───
+        function autoGlitch() {
+            if (bsodActive) return;
+            const now = Date.now();
+
+            // Periodic ambient glitch on existing dialogs
+            if (bugLevel > 1 && now - lastGlitchTime > 3000) {
+                const dialogs = desktop.querySelectorAll('.xp-dialog:not(.ghost)');
+                if (dialogs.length > 0) {
+                    const target = dialogs[Math.floor(Math.random() * dialogs.length)];
+                    glitchDialog(target);
+                    lastGlitchTime = now;
+                }
+            }
+
+            // Ambient glitch bars at higher levels
+            if (bugLevel > 4 && Math.random() < 0.02) {
+                triggerGlitchBars();
+            }
+
+            requestAnimationFrame(autoGlitch);
+        }
+        autoGlitch();
+
+        // ─── DESKTOP CLICK (spawn dialog) ───
+        desktop.addEventListener('click', (e) => {
+            if (e.target === desktop || e.target === watermark) {
+                if (bsodActive) return;
+                createDialog(
+                    e.clientX - 180,
+                    e.clientY - 80
+                );
+            }
+        });
+
+        // ─── INITIAL DIALOG ───
+        setTimeout(() => {
+            createDialog(
+                window.innerWidth / 2 - 180,
+                window.innerHeight / 2 - 120,
+                {
+                    message: 'Is war as old as gravity?',
+                    title: 'Windows'
+                }
+            );
+        }, 600);
+
+    })();
+    </script>
+</body>
+</html>
