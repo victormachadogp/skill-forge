@@ -1,0 +1,27 @@
+{
+  "name": "Is War as Old as Gravity? (XP Alert)",
+  "phrase": "Is war as old as gravity?",
+  "emotion": "tension",
+  "date": "2026-04-10",
+  "lib": "vanilla",
+  "framework": "vanilla",
+  "techniques": [
+    "css-pixel-perfect-ui",
+    "dom-manipulation",
+    "escalating-state-machine",
+    "glitch-effects",
+    "bsod-recreation",
+    "crt-scanlines"
+  ],
+  "learned": [
+    "Recreating Windows XP UI with pure CSS gradients and box-shadows",
+    "Escalating bug levels as state machine driven by user interaction",
+    "Screen tear and glitch bar effects with DOM elements",
+    "BSOD as narrative climax with restart cycle"
+  ],
+  "atmosphere": {
+    "palette": "XP blue desktop, dialog grays, warning yellows degrading to BSOD blue",
+    "movement": "starts static and familiar, escalates to chaos with each click",
+    "density": "sparse → overwhelming as dialogs multiply"
+  }
+}
