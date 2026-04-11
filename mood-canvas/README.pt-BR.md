@@ -129,9 +129,7 @@ feat/mood-canvas/{nome-da-arte}
 
 ## Peças
 
-| Peça | Ver | Tech |
-|---|---|---|
-| Is War as Old as Gravity | [ver ↗](https://victormachadogp.github.io/skill-forge/mood-canvas/scene--is-war-as-old-as-gravity--vanilla--vanilla/) | vanilla |
+- **Is War as Old as Gravity** — [ver](https://victormachadogp.github.io/skill-forge/mood-canvas/scene--is-war-as-old-as-gravity--vanilla--vanilla/) *(vanilla)*
 
 ---
 
