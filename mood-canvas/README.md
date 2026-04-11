@@ -75,13 +75,7 @@ This enables:
 
 ### 🧩 Piece as Isolated Unit
 
-Each piece of art is a fully independent unit.
-
-```
-pieces/{type}--{name}--{lib}--{framework}/
-```
-
-No shared state, no global dependencies. Each folder is self-contained and can be run on its own.
+Each piece of art is a fully independent unit — no shared state, no global dependencies. Each folder is self-contained and can be run on its own.
 
 ---
 
@@ -89,12 +83,14 @@ No shared state, no global dependencies. Each folder is self-contained and can b
 
 ### Folder Structure
 
-Each visual piece lives in its own folder inside `pieces/`:
+Each visual piece lives in its own folder directly inside `mood-canvas/`:
 
 ```
 mood-canvas/
-└── pieces/
-    └── {type}--{art-name}--{lib}--{framework}/
+└── {type}--{art-name}--{lib}--{framework}/
+    ├── index.html
+    ├── meta.json
+    └── LEARNINGS.md
 ```
 
 ### Folder Naming Convention
@@ -107,11 +103,37 @@ Each segment uses kebab-case. Double dashes separate segments to avoid ambiguity
 |---|---|
 | `type` | `scene`, `particle`, `shader`, `interactive` |
 | `art-name` | `ocean-breathing`, `inner-fire`, `falling-thoughts` |
-| `lib` | `threejs`, `p5js`, `canvas2d`, `pixijs` |
+| `lib` | `threejs`, `p5js`, `canvas2d`, `pixijs`, `vanilla` |
 | `framework` | `react`, `vanilla`, `svelte` |
 
 **Example:** `particle--falling-thoughts--threejs--react`
 
+> When no visual library or framework is used, both segments are `vanilla`.
+> **Example:** `scene--is-war-as-old-as-gravity--vanilla--vanilla`
+
+### Branch naming
+
+Each piece is developed on its own branch:
+
+```
+feat/mood-canvas/{art-name}
+```
+
+### Each piece must contain
+
+- `index.html` — the piece itself
+- `meta.json` — metadata (emotion, intensity, motion, visual, text, etc.)
+- `LEARNINGS.md` — what was explored and learned
+
+---
+
+## Pieces
+
+| Piece | Live | Tech |
+|---|---|---|
+| Is War as Old as Gravity | [view ↗](https://victormachadogp.github.io/skill-forge/mood-canvas/scene--is-war-as-old-as-gravity--vanilla--vanilla/) | vanilla |
+
+---
 
 ## Backlog
 
@@ -143,5 +165,6 @@ Ideas and evolutions that may make sense as the project grows. Nothing here is a
 
 ### Infra and CI
 
+- [ ] **Revisit deploy strategy** — evaluate GitHub Pages vs Vercel/Netlify as the number of pieces grows
 - [ ] **CI on Skill Forge** — pipeline that runs structure validation, generates thumbnails, and deploys the gallery automatically
 - [ ] **Visual tests** — snapshot testing of pieces to detect accidental visual regressions
