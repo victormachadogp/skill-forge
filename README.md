@@ -1,0 +1,1 @@
+- Adicionar um verificador de branch name para ver se tá seguindo o padrão que estabeleci, usar CI para fazer isso
