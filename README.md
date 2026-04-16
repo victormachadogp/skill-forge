@@ -1,1 +1,6 @@
 - Adicionar um verificador de branch name para ver se tá seguindo o padrão que estabeleci, usar CI para fazer isso
+- Criar uma API simples (ex: Node.js), dockerizar e rodar no Kubernetes para entender conceitos básicos.
+  - O que é um pod na prática
+  - Como o Kubernetes recria pods automaticamente
+  - Como usar kubectl de verdade
+  - Diferença entre rodar container vs rodar em Kubernetes
