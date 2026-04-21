@@ -4,4 +4,8 @@
   - Como o Kubernetes recria pods automaticamente
   - Como usar kubectl de verdade
   - Diferença entre rodar container vs rodar em Kubernetes
+  - Usar Minikube ou Kind para rodar Kubernetes localmente
+
 - Procurar um serviço de CD melhor do que Github Pages
+  
+- Adicionar feature toggles usando Unleash
